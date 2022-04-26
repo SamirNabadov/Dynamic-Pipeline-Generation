@@ -1,6 +1,13 @@
 plugins {
     id 'com.github.sherter.google-java-format' version '0.9' apply false
+	id 'io.spring.dependency-management' version "$springDependencyManagerVersion" apply false
+	id 'com.google.cloud.tools.jib' version "$jlibVersion" apply false
 }
+
+def jibUsingProjects = [
+		project(':app'),
+		project(':base')
+]
 
 allprojects {
     version = '1.0'
@@ -35,4 +42,19 @@ subprojects {
     }
 
     compileJava.dependsOn tasks.googleJavaFormat
+}
+
+configure(jibUsingProjects) {
+	apply plugin: 'com.google.cloud.tools.jib'
+
+	jib {
+		allowInsecureRegistries = true
+		to {
+			image = "$dockerRepoUrl/${project.name}"
+		}
+		container {
+			creationTime = 'USE_CURRENT_TIMESTAMP'
+		}
+	}
+
 }

@@ -1,6 +1,6 @@
 
 include:
- - project: devops/cicd-template-project
+ - project: $CI_PROJECT_TEMPLATE
    file: "gitlab-ci-template.yml"
 
 variables:

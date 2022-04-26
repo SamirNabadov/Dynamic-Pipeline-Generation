@@ -8,45 +8,37 @@ Generation Dynamic Pipeline on Gitlab
 Basic settings
 ------------
 * GitLab CI Pipeline
-* Kubernetes template using Helm Charts
-* Continuous Deployment using ArgoCD
-* GitOps repository structure
+* Helm Charts for deploy to Kubernetes
+* Continuous Deployment using Helm
+* Python scripts for generation dynamic pipelines
+* Using the jib on the gradle to build and push images to gitlab registry
 
-Gitlab repository structure
+Dynamic Pipeline Generation Structure
 ------------
-![Screenshot](Topology.png)
+![Screenshot](dynamic_pipeline_generation.png)
 
 Note
 ------------
 You can add variables in Gitlab at the group level from Settings -> CICD -> Variables
 
-* CD_ARGOCD_URL: argocd.local.az
-* CD_ARGOCD_USERNAME: argo
-* CD_ARGOCD_PASSWORD: password
-* CI_GITLAB_REGISTRY_URL: gitlab.local.az:4567
-* CI_GITLAB_REGISTRY_USERNAME: admin_registry
-* CI_GITLAB_REGISTRY_PASSWORD: password
-* CI_GITLAB_USERNAME: admin_ci
+* CI_GITLAB_USERNAME: cicd_user
 * CI_GITLAB_PASSWORD: password
-* CI_PROJECT_TEMPLATE: cicd/demo/ci-template
-* CD_GITLAB_PROJECT: cicd
-* EXPO_USERNAME: expo
-* EXPO_PASSWORD: passowrd
+* CI_REGISTRY_USER: registry_user
+* CI_REGISTRY_PASSWORD: password
+* CI_PROJECT_TEMPLATE: devops/cicd-template-project
 
-The following stages are for the backend, frontend and mobile. 
+
+
 
 stages:
-  - package
-  - image_build
-  - push_to_helm
-  - argocd_sync
-  - deploy_to_expo
+  - generate-child-pipeline
+  - trigger-child-pipeline
 
-The package stage is undergoing the build operation.
-The image_build stage creates an image from Dockerfile.
-The push_to_helm stage writes a new image tag id to the helm repo.
-The argocd_sync stage synchronizes the application in argpcd due to a change in the helm repo.
-The deploy_to_expo stage for mobile includes build operations for both android and ios.
+stages:
+  - test
+  - build
+  - deploy-dev
+  - deploy-prod
 
 
 __Requirements__
@@ -54,6 +46,7 @@ __Requirements__
 * Gitlab
 * Python
 * Helm
+* Kubernetes Environment (Dev & Prod)
 
 __Author Information__
 ------------------
