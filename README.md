@@ -48,9 +48,9 @@ stages:
 __Requirements__
 ------------
 * Gitlab
-* Python 3
+* Kubernetes
 * Helm
-* Kubernetes Environment (Dev & Prod)
+* Python
 
 __Author Information__
 ------------------
