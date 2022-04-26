@@ -3,8 +3,6 @@ __Dynamic Pipeline Generation__
 
 Generation Dynamic Pipeline on Gitlab
 
-![Screenshot](GitOpsImage.png)
-
 Basic settings
 ------------
 * GitLab CI Pipeline
@@ -27,9 +25,6 @@ You can add variables in Gitlab at the group level from Settings -> CICD -> Vari
 * CI_REGISTRY_PASSWORD: password
 * CI_PROJECT_TEMPLATE: devops/cicd-template-project
 
-
-
-
 stages:
   - generate-child-pipeline
   - trigger-child-pipeline
@@ -40,6 +35,7 @@ stages:
   - deploy-dev
   - deploy-prod
 
+![Screenshot](gitlab_pipeline_stages.png)
 
 __Requirements__
 ------------
