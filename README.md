@@ -27,7 +27,7 @@ You can add variables in Gitlab at the group level from Settings -> CICD -> Vari
 * DEV_KUBERNETES_CLUSTER_KUBE_CONFIG: (included dev Cluster kube config)
 * PROD_KUBERNETES_CLUSTER_KUBE_CONFIG: (included prod Cluster kube config)
 
-First, the gitlab ci template file is included in the project. There are 2 stages. The first stage is started, a new pipeline file is created based on the python script, then in the next stage the same gitlab ci file is triggered. 
+First, the gitlab ci template file is included in the project. There are 2 stages. The first stage is started, a new pipeline file is created based on the python script, then in the next stage the same gitlab ci file is triggered. The names of the modules are derived and used from the gradle's settings file  based on the python script.
 
 stages:
   - generate-child-pipeline
