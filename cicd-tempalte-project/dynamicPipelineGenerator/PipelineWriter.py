@@ -94,7 +94,7 @@ deploy-dev-{module}:
     - .deploy
   variables:
     CI_HOSTNAME: "dev-{module}.local.az"
-    CI_KUBE_CONFIG: $CI_K8S_CONFIG_DEV
+    CI_KUBE_CONFIG: $DEV_KUBERNETES_CLUSTER_KUBE_CONFIG
   environment:
     name: dev-{module}-environment
     url: http://$CI_HOSTNAME/
@@ -108,7 +108,7 @@ deploy-prod-{module}:
     - .deploy
   variables:
     CI_HOSTNAME: "{module}.local.az"
-    CI_KUBE_CONFIG: $PROD_KUBE_CONFIG
+    CI_KUBE_CONFIG: $PROD_KUBERNETES_CLUSTER_KUBE_CONFIG
   environment:
     name: {module}-environment
     url: http://$CI_HOSTNAME/

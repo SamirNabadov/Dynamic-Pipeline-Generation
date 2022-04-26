@@ -24,10 +24,17 @@ You can add variables in Gitlab at the group level from Settings -> CICD -> Vari
 * CI_REGISTRY_USER: registry_user
 * CI_REGISTRY_PASSWORD: password
 * CI_PROJECT_TEMPLATE: devops/cicd-template-project
+* DEV_KUBERNETES_CLUSTER_KUBE_CONFIG: (included dev Cluster kube config)
+* PROD_KUBERNETES_CLUSTER_KUBE_CONFIG: (included prod Cluster kube config)
+
+First, the gitlab ci template file is included in the project. There are 2 stages. The first stage is started, a new pipeline file is created based on the python script, then in the next stage the same gitlab ci file is triggered. 
 
 stages:
   - generate-child-pipeline
   - trigger-child-pipeline
+
+The new gitlab file already has 4 stages.
+Note that the jobs in the newly created gitlab file are configured according to a multi-project. That is, if there is any change in any project, only jobs belonging to the changed project will be created and executed.
 
 stages:
   - test
@@ -40,7 +47,7 @@ stages:
 __Requirements__
 ------------
 * Gitlab
-* Python
+* Python 3
 * Helm
 * Kubernetes Environment (Dev & Prod)
 
