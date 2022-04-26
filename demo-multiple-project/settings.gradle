@@ -1,0 +1,5 @@
+rootProject.name = 'demo-multiple-project'
+
+include 'common'
+include 'base'
+include 'app'

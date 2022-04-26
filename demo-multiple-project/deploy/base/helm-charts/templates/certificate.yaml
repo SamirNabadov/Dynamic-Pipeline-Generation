@@ -1,0 +1,11 @@
+{{- if .Values.istio.tls }}
+apiVersion: v1
+kind: Secret
+metadata: 
+  name: { .Release.Name }}
+  namespace: istio-system
+type: kubernetes.io/tls
+data: 
+  tls.crt: {{ .Values.istio.certBase64.crt }} #base64 encoded cert
+  tls.key: {{ .Values.istio.certBase64.key }} #base64 encoded key
+{{- end }}

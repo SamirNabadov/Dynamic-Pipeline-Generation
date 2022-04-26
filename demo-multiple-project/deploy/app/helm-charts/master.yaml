@@ -1,0 +1,145 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+# Define just your repository name:
+dockerRegistry: gitlab.local.az:4567
+imagePullSecrets: regcred
+
+namespace: application
+
+replicaCount: 1
+
+image:
+  name: devops/demo-multiple-project/app
+  tag: 1133
+  pullPolicy: IfNotPresent
+
+# secret key value in the data must be base64
+secrets:
+  enabled: false
+  data:
+    - key: KEY_NAME
+      value: M1VIS0RqZ1pLQlZqSDZ3WXhEUTM=
+
+configmaps:
+  enabled: false
+  data:
+    - key: KEY_NAME
+      value: VALUE_NAME
+
+# Default Container Termination Time
+terminationGracePeriodSeconds: 30
+
+# Container  Port
+ports:
+  enabled: true
+  containerPort: 5000
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+hostsfile:
+  enabled: false
+  records:
+    - name: example.local
+      ip: 127.0.0.1
+    - name: testing.local
+      ip: 127.0.0.2
+
+# App Rolling Update
+strategy:
+  enabled: true
+  type: RollingUpdate
+  rollingUpdate: #Update Pods a certain number at a time
+    maxUnavailable: 0 #Total number of pods that can be unavailable at once
+    maxSurge: 1 #Maximum number of pods that can be deployed above desired state
+minReadySeconds: 5 # After readyness probe wait 5 second and start rolling deploy app
+revisionHistoryLimit: 1
+
+hpa:
+  enabled: false
+  minReplicas: "1"
+  maxReplicas: "3"
+  cpuUtilization: "90"
+  memoryUtilization: "450Mi"
+
+resources:
+  enabled: true
+  requests:
+    memory: 200Mi
+    cpu: 200m
+  limits:
+    memory: 500Mi
+    cpu: 500m
+
+readinessProbe:
+  enabled: false
+  httpGet:
+    path: actuator/health
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 1
+  successThreshold: 1
+
+livenessProbe:
+  enabled: false
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 70
+  periodSeconds: 20
+  timeoutSeconds: 2
+  failureThreshold: 1
+  successThreshold: 1
+
+istio:
+  enabled: false
+  hostname: app.local.az
+  tls: false
+  certBase64:
+    crt:
+    key:
+  routes: 
+    - route: /
+  annotations: {}
+
+env:
+- name: HOST
+  valueFrom:
+    fieldRef:
+      fieldPath: status.hostIP
+- name: TZ
+  value: 'Asia/Baku'
+- name: APP_ENV
+  value: 'prod'
+
+hostpathVolume:
+  enabled: false
+  mountPath: /share
+  type: Directory
+  name: testhostpath
+
+volumeMounts:
+  enabled: false
+  mountPath: /tmp/test  # mount path inside of container
+  name: shared          # mount name 
+  claimName: nfs-pvc    # pvc name
+
+nameOverride: ""
+fullnameOverride: ""
+
+podSecurityContext: {}
+  # fsGroup: 2000
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+nodeSelector: {}
+tolerations: []
+affinity: {}

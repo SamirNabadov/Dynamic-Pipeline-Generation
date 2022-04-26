@@ -1,0 +1,7 @@
+
+include:
+ - project: devops/cicd-template-project
+   file: "gitlab-ci-template.yml"
+
+variables:
+  CI_PROJECT_MODE: MULTIPLE

@@ -1,0 +1,33 @@
+stages:
+  - generate-child-pipeline
+  - trigger-child-pipeline
+
+generate-child-pipeline:
+  stage: generate-child-pipeline
+  image: bitnami/python
+  only:
+    refs:
+      - "develop"
+      - "master"
+    variables:
+      - $CI_PROJECT_MODE == "MULTIPLE"
+  script:
+    - git -c http.sslVerify=false clone https://$CI_GITLAB_USERNAME:$CI_GITLAB_PASSWORD@$gitlab.localaz/devops/cicd-template-project.git
+    - python3 cicd-template-project/dynamicPipelineGenerator/main.py
+  artifacts:
+    paths:
+      - child-pipeline-gitlab-ci.yml
+
+trigger-child-pipeline:
+  stage: trigger-child-pipeline
+  only:
+    refs:
+      - "develop"
+      - "master"
+    variables:
+      - $CI_PROJECT_MODE == "MULTIPLE"
+  trigger:
+    include:
+      - artifact: child-pipeline-gitlab-ci.yml
+        job: generate-child-pipeline
+    strategy: depend
