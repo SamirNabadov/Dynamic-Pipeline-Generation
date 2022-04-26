@@ -5,11 +5,11 @@ Generation Dynamic Pipeline on Gitlab
 
 Basic settings
 ------------
-* GitLab CI Pipeline
+* GitLab CI Pipeline Template
 * Helm Charts for deploy to Kubernetes
 * Continuous Deployment using Helm
-* Python scripts for generation dynamic pipelines
-* Using the jib on the gradle to build and push images to gitlab registry
+* Python scripts for generation dynamic pipeline
+* Using the jib on the gradle to build and push images to gitlab registry (without docker)
 
 Dynamic Pipeline Generation Structure
 ------------
@@ -34,7 +34,8 @@ stages:
   - trigger-child-pipeline
 
 The new gitlab file already has 4 stages.
-Note that the jobs in the newly created gitlab file are configured according to a multi-project. That is, if there is any change in any project, only jobs belonging to the changed project will be created and executed.
+Note that the jobs in the newly created gitlab file are configured according to a multi-project. That is, if there is any change in any project, only jobs belonging to the changed project will be created and executed. 
+Helm Charts for deployments are located in the deploy folder.
 
 stages:
   - test
