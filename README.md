@@ -33,12 +33,10 @@ stages:
   - generate-child-pipeline
   - trigger-child-pipeline
 
-The new gitlab file already has 4 stages.
-Note that the jobs in the newly created gitlab file are configured according to a multi-project. That is, if there is any change in any project, only jobs belonging to the changed project will be created and executed. 
-Helm Charts for deployments are located in the deploy folder.
+The new gitlab ci file has 4 stages. Note that the jobs in the newly created gitlab file are configured according to a multi-project. That is, if there is any change in any project, only jobs belonging to the changed project will be created and executed. Helm Charts for deployments are located in the deploy folder.
 
 tages:
-  - test
+  - test  
   - build
   - deploy-dev
   - deploy-prod
