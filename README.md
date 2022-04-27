@@ -1,4 +1,4 @@
-__Dynamic Pipeline Generation__
+__Dynamic Pipeline Generation for multiple projects__
 ================================
 
 Generation Dynamic Pipeline on Gitlab
