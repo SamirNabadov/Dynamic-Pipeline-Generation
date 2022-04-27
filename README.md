@@ -8,7 +8,7 @@ Basic settings
 * GitLab CI Pipeline Template
 * Helm Charts for deploy to Kubernetes
 * Continuous Deployment using Helm
-* Python scripts for generation dynamic pipeline
+* Python script for generation dynamic pipeline for multiple projects
 * Using the jib on the gradle to build and push images to gitlab registry (without docker)
 
 Dynamic Pipeline Generation Structure
