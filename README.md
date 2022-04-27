@@ -1,4 +1,4 @@
-__Dynamic Pipeline Generation for multiple projects__
+__Dynamic Pipeline Generation for multi module projects__
 ================================
 
 Generation Dynamic Pipeline on Gitlab
@@ -8,7 +8,7 @@ Basic settings
 * GitLab CI Pipeline Template
 * Helm Charts for deploy to Kubernetes
 * Continuous Deployment using Helm
-* Python script for generation dynamic pipeline for multiple projects
+* Python script for generation dynamic pipeline for multi module projects
 * Using the jib on the gradle to build and push images to gitlab registry (without docker)
 
 Dynamic Pipeline Generation Structure
